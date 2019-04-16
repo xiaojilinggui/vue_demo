@@ -2,14 +2,18 @@
   <div id="app">
      <div class="todoapp">
        <TheHeader :addTodo="addTodo"></TheHeader>
-       <TodoList :todos="todos" :deleteTodo="deleteTodo">
+       <TodoList :todos="todos">
        </TodoList>
        <TheFooter :todos="todos" :deleteCompleteTodos="deleteCompleteTodos" :selectAllTodos='selectAllTodos' :filters="filters"></TheFooter>
     </div>
   </div>
 </template>
 
+
+
+
 <script>
+ import PubSub from 'pubsub-js'
  import TheFooter from './components/TheFooter.vue'
  import TheHeader from './components/TheHeader.vue'
  import TodoList from './components/TodoList.vue'
@@ -33,6 +37,12 @@ export default {
       },
     }
   },
+  mounted(){
+    //订阅消息 箭头函数指向this
+    PubSub.subscribe('deleteTodo',(msg,index)=>{
+      this.deleteTodo(index)
+    })
+  },
 
   methods:{
     
@@ -51,7 +61,7 @@ export default {
     selectAllTodos(check){
       this.todos.forEach(todo =>todo.complete = check)
     },
-    
+
   },
   
   components: {

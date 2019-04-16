@@ -3,7 +3,7 @@
       <input class="toggle-all" id="toggle-all" type="checkbox" :v-model="isAllCheck">
       <label for="toggle-all" >Mark all as complete</label>
       <ul class="todo-list" >
-        <TodoItem v-for="(todo,index) in todos" :key="index" :todo ="todo" :index="index" :deleteTodo="deleteTodo"></TodoItem>
+        <TodoItem v-for="(todo,index) in todos" :key="index" :todo ="todo" :index="index"></TodoItem>
       </ul>
     </section>
 </template>
@@ -14,7 +14,6 @@ import { filter } from 'bluebird';
 export default {
     props:{
         todos:Array,
-        deleteTodo:Function,
         selectAllTodos:Function,
         filter
     },
